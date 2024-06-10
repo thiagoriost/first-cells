@@ -193,7 +193,7 @@ class LoginMobilePage extends intl(CellsPage) {
           target="_blank"
           class="content"
         >
-          <bbva-web-link @click=${()=>this.goToAnotherPage('goal')}>Back to goal page</bbva-web-link>
+          <bbva-web-link @click=${()=>this.goToAnotherPage('home')}>Back to Home page</bbva-web-link>
           <div class="main-inputs" ambient="dark300">
             <bbva-web-form-text
               id="user"
@@ -235,8 +235,8 @@ class LoginMobilePage extends intl(CellsPage) {
     `;
   }
 
-  goToAnotherPage(page) {
-    this.navigate(page);
+  goToAnotherPage(_page) {
+    this.navigate(_page);
   }
 
   render() {

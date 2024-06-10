@@ -42,8 +42,8 @@ class DataPage extends CellsPage {
   `;
   }
 
-  goToAnotherPage(page) {
-    this.navigate(page);
+  goToAnotherPage(_page) {
+    this.navigate(_page);
   }
 
   render() {
@@ -53,7 +53,8 @@ class DataPage extends CellsPage {
         <bbva-web-link @click=${()=>this.goToAnotherPage('goal')}>Back to goal page</bbva-web-link>
           ${this._summaryTpl}
         </div>
-      </demo-app-template>`;
+      </demo-app-template>
+      `;
   }
 
   get _summaryTpl() {

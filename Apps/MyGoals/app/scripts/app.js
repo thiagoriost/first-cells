@@ -3,9 +3,11 @@
 
   window.CellsPolymer.start({
     routes: {
-      'goal': '/',
+      'home': '/',
+      'goal': '/goal',
       'data': '/data',
-      'login': '/login'
+      'login': '/login',
+      'testinglitcomponent': '/testinglitcomponent'
     }
   });
 }());

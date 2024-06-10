@@ -119,10 +119,12 @@ class GoalPage extends CellsPage {
     `;
   }
 
-  gotoNewPage(page) {
+  gotoNewPage(_page) {
 
-    this.publish('total-goals-channel', this.totals);
-    this.navigate(page);
+    if (_page === 'data') {
+      this.publish('total-goals-channel', this.totals);
+    }
+    this.navigate(_page);
   }
 
   get totals() {
@@ -146,7 +148,7 @@ class GoalPage extends CellsPage {
               </br>
             ` : null
 }
-          <bbva-web-link @click=${()=>this.gotoNewPage('login')}>Login page</bbva-web-link>
+          <bbva-web-link @click=${()=>this.gotoNewPage('home')}>Home page</bbva-web-link>
          </div>
       </demo-app-template>`;
   }

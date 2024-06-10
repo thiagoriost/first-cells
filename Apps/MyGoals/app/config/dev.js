@@ -26,7 +26,8 @@ const appConfig = {
     pagesPath: './pages/',
     prplLevel: 1,
     // initialBundle: [ 'login' ],
-    initialBundle: [ 'goal'],
+    // initialBundle: [ 'goal'],
+    initialBundle: [ 'home'], // esta seria la pagina de inicio
 
     /* Internationalization options */
     locales: {
