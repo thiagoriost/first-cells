@@ -26,16 +26,7 @@ class Testinglitcomponent extends CellsPage {
   render() {
     return html`
 
-    <demo-app-template data-cells-type="template">
-      <div slot="app-main-content">
-
-        <h1>testinglitcomponent-page</h1>
-        <bbva-button-default type="submit" @click=${()=>this.goToAnotherPage('home')}>
-          Go to home-page
-        </bbva-button-default>
-        <my-first-custom-element></my-first-custom-element>
-      </div>
-    </demo-app-template>
+    <h1>TEST</h1>
 
   `;
   }

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>dm-rigoberto-rios demo</title>
+    <script type="module" src="./demo-build.js"></script>
+  </head>
+
+  <body>
+    <bbva-dev-demo-helper events='["fake-login", "cards-request-start", "cards-request-success", "cards-request-error", "card-detail-request-start", "card-detail-request-success", "card-detail-request-error"]'>
+      <bbva-dev-demo-case heading="WebComponent events" description="Requests by methods and events in webcomponent" src="./basic.html">
+        <template>
+          <fake-login></fake-login>
+          <dm-rigoberto-rios id="cardsDM" version="0"></dm-rigoberto-rios>
+          <dm-rigoberto-rios id="cardDetailDM" card-id="1102"></dm-rigoberto-rios>
+          <bbva-button-default class="btn full-width" disabled>getCards()</bbva-button-default>
+          <bbva-button-default class="btn full-width" disabled>getCardDetail()</bbva-button-default>
+          <div class="loading" hidden>Cargando datos...</div>
+          <script type="module">
+            const fakeLogin = document.querySelector('fake-login');
+            const cardsDM = document.querySelector('#cardsDM');
+            const cardDetailDM = document.querySelector('#cardDetailDM');
+            const buttons = document.querySelectorAll('.btn');
+            const loading = document.querySelector('.loading');
+
+            /**
+             * Se habilitan los botones cuando se realiza la autenticación
+            */
+            fakeLogin.addEventListener('fake-login', () => {
+              buttons.forEach(button => button.removeAttribute('disabled'));
+            });
+
+            /**
+             * Se invoca el método getCards del componente
+            */
+            buttons[0].addEventListener('click', () => {
+              cardsDM.getCardsList();
+              loading.hidden = false;
+              buttons[0].setAttribute('disabled', true);
+            });
+
+            /**
+             * Se agrega el listener de éxito para habilitar el botón y apagar el indicador de carga de datos
+            */
+            cardsDM.addEventListener('cards-request-success', () => {
+              loading.hidden = true;
+              buttons[0].removeAttribute('disabled');
+            });
+
+            /**
+             * Se agrega el listener de falla para habilitar el botón y apagar el indicador de carga de datos
+            */
+            cardsDM.addEventListener('cards-request-error', () => {
+              loading.hidden = true;
+              buttons[0].removeAttribute('disabled');
+            });
+
+          /**
+             * Se invoca el método getCards del componente
+            */
+            buttons[1].addEventListener('click', () => {
+              cardDetailDM.getCardDetail();
+              loading.hidden = false;
+              buttons[1].setAttribute('disabled', true);
+            });
+
+            /**
+             * Se agrega el listener de éxito para habilitar el botón y apagar el indicador de carga de datos
+            */
+            cardDetailDM.addEventListener('card-detail-request-success', () => {
+              loading.hidden = true;
+              buttons[1].removeAttribute('disabled');
+            });
+
+            /**
+             * Se agrega el listener de falla para habilitar el botón y apagar el indicador de carga de datos
+            */
+            cardDetailDM.addEventListener('card-detail-request-error', () => {
+              loading.hidden = true;
+              buttons[1].removeAttribute('disabled');
+            });
+
+            /**
+             * Se inicializa la propiedad host para los componentes
+             */
+            fakeLogin.host = cardsDM.host = cardDetailDM.host = 'https://artichoke.platform.bbva.com';
+
+          </script>
+        </template>
+      </bbva-dev-demo-case>
+    </bbva-dev-demo-helper>
+  </body>
+</html>
