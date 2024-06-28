@@ -38,8 +38,18 @@ class LoginMobilePage extends intl(CellsPage) {
 
   static get properties() {
     return {
-      host: String,
-      country: String,
+      user: {
+        type: String,
+      },
+      password: {
+        type: String,
+      },
+      host: {
+        type: String
+      },
+      country: {
+        type: String
+      },
       pageState: {
         type: Object,
         attribute: false,
@@ -66,19 +76,15 @@ class LoginMobilePage extends intl(CellsPage) {
     ];
   }
 
-  firstUpdated(changedProps) {
-    super.firstUpdated(changedProps);
-
-    this._userInput = this.shadowRoot.querySelector('#user');
-    this._passwordInput = this.shadowRoot.querySelector('#password');
-  }
   constructor() {
     super();
-    this.host = window.AppConfig.host;
-    this.country = window.AppConfig.country;
-    this.apiVersion = window.AppConfig.grantingTicketVersion;
+    this.user = 'L73740016';
+    this.password = '112233';
     this.i18nKeys = DEFAULT_I18N_KEYS;
     this.subscribe('page_state', (pageState) => (this.pageState = pageState));
+    this.host = 'https://artichoke.platform.bbva.com';
+    this.country = 'pe';
+    this.version = '0';
     this.dispatchEvent(
       new CustomEvent('application-started', {
         bubbles: true,
@@ -95,7 +101,7 @@ class LoginMobilePage extends intl(CellsPage) {
     return super.update && super.update(props);
   }
 
-  /* firstUpdated(props) {
+  firstUpdated(props) {
     // eslint-disable-next-line no-unused-expressions
     super.firstUpdated && super.firstUpdated(props);
     const queryScope = this.shadowRoot ? this.shadowRoot : this;
@@ -127,9 +133,9 @@ class LoginMobilePage extends intl(CellsPage) {
       this._checkRequire.bind(this)
     );
 
-    // queryScope
-    //   .querySelector('#loginForm')
-    //   .addEventListener('submit', this._doLogin.bind(this));
+    queryScope
+      .querySelector('#loginForm')
+      .addEventListener('submit', this._doLogin.bind(this));
 
     queryScope.addEventListener(
       'header-main-icon-right-primary-click',
@@ -142,7 +148,7 @@ class LoginMobilePage extends intl(CellsPage) {
         composed: true,
       })
     );
-  } */
+  }
 
   _checkRequire() {
     if (
@@ -193,25 +199,31 @@ class LoginMobilePage extends intl(CellsPage) {
         .iconRightPrimary="${menuHelp}"
         accessibility-text-icon-right-primary="${this.t(this.i18nKeys.help)}"
         image="https://movil.bbva.es/apps/woody/assets/vendor/res/img/logos/logo-white-1c1c2a68cc4c755b9ebacef725dd3421.svg"
-      ></bbva-header-main>
+      >
+      <h1>rigo</h1>
+      </bbva-header-main>
     `;
   }
 
   goToAnotherPage(_page) {
     this.shadowRoot.querySelector('#dm').login({
 
-      // userId: this._userInput.value,
-      userId: 'L73740016',
+      userId: this.user,
 
-      // password: this._passwordInput.value,
-      password: '112233',
+      // userId: 'L73740016',
+
+      password: this.password,
+
+      // password: '112233',
+
+      consumerId: window.AppConfig.consumerId
 
       // consumerId: window.AppConfig.consumerId
-      consumerId: window.AppConfig.consumerId
     });
 
     // this.navigate(_page);
   }
+
 
   get _mainContentTpl() {
     return html`
@@ -228,14 +240,20 @@ class LoginMobilePage extends intl(CellsPage) {
               id="user"
               class="input"
               required=""
+              name="user"
+              @change=${({target})=>this[target.name] = target.value}
               label="${this.t(this.i18nKeys.userInputLabel)}"
+              value=${this.user}
             ></bbva-web-form-text>
             <bbva-web-form-password
               id="password"
               class="input"
+              name="password"
+              @change=${({target})=>this[target.name] = target.value}
               label="${this.t(this.i18nKeys.userPasswordLabel)}"
               name="customField"
               required=""
+              value=${this.password}
             ></bbva-web-form-password>
 
           </div>
@@ -249,11 +267,9 @@ class LoginMobilePage extends intl(CellsPage) {
               @click=${()=>this.goToAnotherPage('cards')}
               >${this.t(this.i18nKeys.button)}</bbva-web-button-default
             >
-            <bbva-web-button-default id="submit" class="input" type="submit"
-              >${this.t(this.i18nKeys.clientButton)}</bbva-web-button-default
-            >
+
           </div>
-          <login-dm id="dm" .host="${this.host}" .country="${this.country}" .version="${this.apiVersion}" @login-success="${this._onLoginSuccess}"
+          <login-dm id="dm" .host="${this.host}" .country="${this.country}" .version="${this.version}" @login-success="${this._onLoginSuccess}"
             @login-error="${this._onLoginError}"></login-dm>
         </form>
 
@@ -270,12 +286,17 @@ class LoginMobilePage extends intl(CellsPage) {
 
   _onLoginSuccess(e) {
     console.log(e);
-    this.publish('user_name', this._userInput.value);
+    this.publish('detailRespoLogin', e.detail);
     this.navigate('cards');
   }
 
   _onLoginError({ detail }) {
     console.log(detail);
+    const response = JSON.parse(detail.response);
+    response['http-status'] == 403
+      ? alert('Credenciales Invalidas')
+      : alert('');
+
   }
 }
 window.customElements.define(LoginMobilePage.is, LoginMobilePage);

@@ -18,6 +18,7 @@ class HomePage extends CellsPage {
     this.country = window.AppConfig.country;
     this.apiVersion = window.AppConfig.financialOverviewVersion;
     this.customers = [];
+    this.dataLogin = {};
   }
 
   static get properties() {
@@ -25,7 +26,11 @@ class HomePage extends CellsPage {
       userName: { type: String },
       customers: { type: Array },
       host: { type: String },
-      apiVersion: { type: String }
+      apiVersion: { type: String },
+      dataLogin: {
+        type: Object,
+        attribute: false,
+      }
     };
   }
 
@@ -34,8 +39,8 @@ class HomePage extends CellsPage {
   }
 
   onPageEnter() {
-    this.subscribe('user_name', (userName) => this.userName = userName);
-    console.log(this.userName);
+    this.subscribe('detailRespoLogin', (login) => this.dataLogin = JSON.parse(login));
+    console.log(this.dataLogin);
     /* if (!this.customers.length) {
       this.shadowRoot.querySelector('#dm').getCustomers();
     } */
