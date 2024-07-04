@@ -5,6 +5,7 @@ export class DashboardDm extends LitElement {
 
   constructor() {
     super();
+    console.log('DashboardDm');
     this.host = 'https://artichoke.platform.bbva.com';
     this.country = 'pe';
     this.customerVersion = '1';
@@ -30,6 +31,7 @@ export class DashboardDm extends LitElement {
   }
 
   getCustomers() {
+    console.log('getCustomers');
     const dp = new BGADPCustomersGetV1({
       host: this.host,
       version: this.customerVersion
@@ -45,6 +47,7 @@ export class DashboardDm extends LitElement {
   }
 
   _parseCustomers({ response }) {
+    console.log(response);
     const data = JSON.parse(response).data;
     this.dispatchEvent(new CustomEvent('customers-success', {
       composed: true,

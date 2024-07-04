@@ -3,8 +3,8 @@
 
   window.CellsPolymer.start({
     routes: {
-      'cards':'/',
-      'login': '/login',
+      'login': '/',
+      'cards':'/cards',
       'detailCards':'/detailCards'
     }
   });

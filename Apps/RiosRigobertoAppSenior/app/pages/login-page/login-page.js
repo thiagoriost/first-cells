@@ -221,7 +221,7 @@ class LoginMobilePage extends intl(CellsPage) {
       // consumerId: window.AppConfig.consumerId
     });
 
-    // this.navigate(_page);
+    this.navigate(_page);
   }
 
 
@@ -251,7 +251,6 @@ class LoginMobilePage extends intl(CellsPage) {
               name="password"
               @change=${({target})=>this[target.name] = target.value}
               label="${this.t(this.i18nKeys.userPasswordLabel)}"
-              name="customField"
               required=""
               value=${this.password}
             ></bbva-web-form-password>
@@ -293,10 +292,7 @@ class LoginMobilePage extends intl(CellsPage) {
   _onLoginError({ detail }) {
     console.log(detail);
     const response = JSON.parse(detail.response);
-    response['http-status'] == 403
-      ? alert('Credenciales Invalidas')
-      : alert('');
-
+    alert(response['http-status'] === 403 ? 'Credenciales Invalidas' : 'Error contacta al administrado');
   }
 }
 window.customElements.define(LoginMobilePage.is, LoginMobilePage);
