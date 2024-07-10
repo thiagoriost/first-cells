@@ -206,6 +206,7 @@ class LoginMobilePage extends intl(CellsPage) {
   }
 
   goToAnotherPage(_page) {
+    console.log(_page);
     this.shadowRoot.querySelector('#dm').login({
 
       userId: this.user,
@@ -221,7 +222,7 @@ class LoginMobilePage extends intl(CellsPage) {
       // consumerId: window.AppConfig.consumerId
     });
 
-    this.navigate(_page);
+    // this.navigate(_page);
   }
 
 

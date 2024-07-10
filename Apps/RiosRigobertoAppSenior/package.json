@@ -16,7 +16,7 @@
     "@bbva-web-components/bbva-web-form-password": "^1.2.0",
     "@bbva-web-components/bbva-web-form-text": "^1.1.0",
     "@bbva-web-components/bbva-web-link": "^1.6.1",
-    "@cells-components/bgadp-cards-v1": "^4.112.0",
+    "@cells-components/bgadp-cards-v1": "^4.114.0",
     "@cells-components/bgadp-customers-v1": "^4.112.0",
     "@cells-components/bgadp-granting-tickets-v0": "^4.111.0",
     "@cells-demo/demo-app-container": "^1.0.0",

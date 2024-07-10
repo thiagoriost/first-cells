@@ -7,7 +7,7 @@ import { BGADPCardsBalancesGetV1 } from '@cells-components/bgadp-cards-v1';
 // import '@bbva-web-components/bbva-button-default/bbva-button-default.js';
 import '@bbva-web-components/bbva-help-modal';
 import '@bbva-web-components/bbva-card-contact';
-import '../../elements/dashboard-dm/dashboard-dm';
+import '../../elements/cards-dm/cards-dm';
 import '../../elements/login-dm/login-dm';
 
 
@@ -86,6 +86,11 @@ class HomePage extends CellsPage {
     console.log('_onLogoutSuccess');
     window.cells.logout();
   }
+  firstUpdated(changedProps) {
+    super.firstUpdated(changedProps);
+
+    this._logoutModal = this.shadowRoot.querySelector('#logoutModal');
+  }
 
   render() {
     return html`
@@ -95,7 +100,7 @@ class HomePage extends CellsPage {
             <bbva-header-main
               icon-left-primary="coronita:on"
 
-              @header-main-icon-left-primary-click=${()=>console.log('this._logoutModal.open()') } text="BBVA">
+              @header-main-icon-left-primary-click=${()=>this._logoutModal.open()} text="BBVA">
             </bbva-header-main>
           </div>
 
@@ -111,8 +116,8 @@ class HomePage extends CellsPage {
             </div>
           </bbva-help-modal>
         </div>
-        <dashboard-dm id="dm" .host="${this.host}" .customers-version="${this.apiVersion}"
-          @customers-success="${this._onCustomersSuccess}"></dashboard-dm>
+        <cards-dm id="dm" .host="${this.host}" .customers-version="${this.apiVersion}"
+          @customers-success="${this._onCustomersSuccess}"></cards-dm>
           <h1>Cards</h1>
         <login-dm id="loginDm" .host="${this.host}" .country="${this.country}" .version="${this.apiVersion}"
           @logout-success="${this._onLogoutSuccess}" @logout-error="${this._onLogoutError}"></login-dm>

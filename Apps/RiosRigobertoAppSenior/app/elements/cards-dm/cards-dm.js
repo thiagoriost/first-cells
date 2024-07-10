@@ -1,4 +1,5 @@
 import { BGADPCustomersGetV1 } from '@cells-components/bgadp-customers-v1';
+import { BGADPCardsBalancesGetV1 } from '@cells-components/bgadp-cards-v1';
 import { LitElement } from 'lit-element';
 
 export class DashboardDm extends LitElement {
@@ -12,7 +13,7 @@ export class DashboardDm extends LitElement {
   }
 
   static get is() {
-    return 'dashboard-dm';
+    return 'cards-dm';
   }
 
   static get properties() {
